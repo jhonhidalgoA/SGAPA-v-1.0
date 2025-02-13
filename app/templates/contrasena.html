@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Login - SGAPA{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/contrasena.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        <h1>¿No recuerdas tú contraseña?</h1>
+        <h4>¡No te preocupes! Nos sucede a todos <span>Ingresa Tú Email</span> y te ayudaremos </h4>
+        <div class="input_group">
+            <label for="username">Email:</label>
+            <div class="input_wrapper">
+                <i class="material-symbols-outlined icon_left" aria-label="Icono de usuario">mail</i>
+                <input type="text" name="username" id="username" value="{{ request.form.username }}">
+            </div>
+            <div class="input__btn">
+                <button type="submit" class="btn">Solicitar</button>
+            </div>
+        </div>
+        <div class="social__photo">
+            <p class="author">Image by: Vinicius Imbroisi</a> from <a
+                    href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5541099">Pixabay</a>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}

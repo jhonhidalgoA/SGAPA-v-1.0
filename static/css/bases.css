@@ -1,0 +1,33 @@
+:root {
+    --color-blue-light: #4C9AFF;
+    --color-blue-aqua: #00B0FF;
+    --color-blue-deep: #2d2382;
+    --color-green-emerald: #28A745;
+    --color-green-lime: #7CFC00;
+    --color-orange-burnt: #FF6F00;
+    --color-orange-sunset: #FFA726;
+    --color-yellow-golden: #FFD700;
+    --color-yellow-bright: #FFEB3B;
+    --color-white: #ffff;
+    --color-white-pearl: #F2F2F2;
+    --color-grey-light: #E0E0E0;
+    --color-black-charcoal: #333333;
+    --color-blue-navy: rgb(12, 33, 97);
+    --color-blue-midnight: #000239;
+    --color-black-transparent: #0000;
+    --hover-primary: #3f33a1;
+    --background-dark: #11101c;
+
+    --size-icon-large: 2.5rem;
+    --size-icon-small: 1.8rem;
+    --size-link: 2.0rem;
+    --size-link-submenu: 1.20rem;
+    --size-text-medium: 18px;
+    --size-text-large: 20px;
+    --size-text-xl: 28px;
+    --size-title-mini: 14px;
+    --size-title-small: 18px;
+    --size-title-medium: 32px;
+    --size-title-large: 40px;
+
+}

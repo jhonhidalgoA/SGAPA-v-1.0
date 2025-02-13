@@ -1,0 +1,41 @@
+2025 SGAPA Software v1.0/               
+│── app/                      # 📂 Código de la aplicación Flask
+│   │── static/               # 📂 Archivos estáticos (CSS, JS, imágenes)
+│   │   │── css/
+│   │   │   ├── styles.css
+│   │   │── js/
+│   │   │   ├── scripts.js
+│   │   │── images/
+│   │── templates/            # 📂 Plantillas HTML
+│   │   │── index.html
+│   │   │── login.html
+│   │   │── docente.html
+│   │   │── estudiante.html
+│   │   │── administrador.html
+│   │   │── padre_familia.html
+│   │── routes/               # 📂 Módulos de rutas
+│   │   │── __init__.py
+│   │   │── auth.py           # 📜 Login y autenticación
+│   │   │── docente.py        # 📜 Funciones del docente
+│   │   │── estudiante.py     # 📜 Funciones del estudiante
+│   │   │── administrador.py  # 📜 Funciones del administrador
+│   │   │── padre_familia.py  # 📜 Funciones del padre de familia
+│   │── models/               # 📂 Modelos de base de datos
+│   │   │── __init__.py
+│   │   │── user.py
+│   │   │── estudiante.py
+│   │   │── docente.py
+│   │── forms/                # 📂 Formularios con Flask-WTF
+│   │   │── __init__.py
+│   │   │── login_form.py
+│── config.py                  # 📜 Configuración de la aplicación
+│── app.py                     # 📜 Punto de entrada de la aplicación
+│── migrations/               # 📂 Migraciones de la base de datos
+│── instance/                 # 📂 Configuración específica (ejemplo, SQLite)
+│── venv/                     # 📂 Entorno virtual (se crea con virtualenv)
+│── requirements.txt          # 📜 Dependencias del proyecto
+│── README.md                 # 📜 Documentación del proyecto
+
+ venv\Scripts\Activate.ps1
+
+ http://localhost:5000
