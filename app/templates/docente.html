@@ -1,11 +1,759 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Bienvenue aux professeurs</h1>
+{% extends "base.html" %}
+
+{% block title %}Docente - SGAPA{% endblock %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/docente.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/asistencia.css') }}">
+{% endblock %}
+
+{% block content %}
+<!--start sidebar-->
+<div class="sidebar close">
+  <div class="sidebar__user">
+    <div class="sidebar__img">
+      <img src="../../static/img/perfil.png" alt="image">
+    </div>
+    <div class="sidebar__info">
+      <h4>Docente</h4>
+      <span>I.E La Presentación</span>
+    </div>
+  </div>
+  <ul class="sidebar__list">
+    <li>
+      <a href="#">
+        <i class="material-symbols-outlined">house</i>
+        <span class="link__name">Inicio</span>
+      </a>
+      <ul class="sub__menu blank">
+        <li><a href="#" class="link__name">Inicio</a></li>
+      </ul>
+    </li>
+    <li class="disabled">
+      <div class="sub__title">
+        <h4>Grados</h4>
+      </div>
+    </li>
+    <li>
+      <div class="icon__link">
+        <a href="#calificaciones">
+          <i class="material-symbols-outlined">query_stats</i>
+          <span class="link__name">Calificaciones</span>
+        </a>
+      </div>
+      <ul class="sub__menu">
+        <li><a href="#calificaciones" class="link__name">Calificaciones</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon__link">
+        <a href="#asistencia">
+          <i class="material-symbols-outlined" aria-label="Playlist">playlist_add_check</i>
+          <span class="link__name">Asistencia</span>
+        </a>
+      </div>
+      <ul class="sub__menu">
+        <li><a href="#asistencia" class="link__name">Asistencia</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon__link">
+        <a href="#reportes">
+          <i class="material-symbols-outlined" aria-label="Format">bar_chart</i>
+          <span class="link__name">Reportes</span>
+        </a>
+      </div>
+      <ul class="sub__menu">
+        <li><a href="#reportes" class="link__name">Reportes</a></li>
+      </ul>
+    </li>
+    <li class="disabled">
+      <div class="sub__title">
+        <h4>Gestión</h4>
+      </div>
+    </li>
+    <li>
+      <a href="#planificacion">
+        <i class="material-symbols-outlined" aria-label="Table">table_chart_view</i>
+        <span class="link__name">Planeación</span>
+      </a>
+      <ul class="sub__menu blank">
+        <li><a href="#" class="link__name">Planeación</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon__link">
+        <a href="#">
+          <i class="material-symbols-outlined">format_list_numbered</i>
+          <span class="link__name">Evaluaciones</span>
+        </a>
+      </div>
+      <ul class="sub__menu">
+        <li><a href="#" class="link__name">Evaluaciones</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#tareas">
+        <i class="material-symbols-outlined" aria-label="Library">library_books</i>
+        <span class="link__name">Tareas</span>
+      </a>
+      <ul class="sub__menu blank">
+        <li><a href="#" class="link__name">Tareas</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon__link">
+        <a href="#calendario">
+          <i class="material-symbols-outlined" aria-label="Calendar">calendar_month</i>
+          <span class="link__name">Calendario</span>
+        </a>
+      </div>
+      <ul class="sub__menu">
+        <li><a href="#" class="link__name">Calendario</a></li>
+      </ul>
+    </li>
+    <li class="disabled">
+      <div class="sub__title">
+        <h4>Settings</h4>
+      </div>
+    </li>
+    <li>
+      <a href="#">
+        <i class="material-symbols-outlined" aria-label="Logout">logout</i>
+        <span class="link__name">Salir...</span>
+      </a>
+      <ul class="sub__menu blank">
+        <li><a href="#" class="link__name">Salir...</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<!--end sidebar-->
+
+<!-- START SESION 2-->
+
+<div class="home__section">
+  <!-- start navbar-->
+  <nav class="navbar">
+    <div class="navbar__logo">
+      <span class="icon material-symbols-outlined">menu_open</span>
+      <a href="#" class="title">SG<span class="danger">A</span>PA</a>
+    </div>
+    <div class="navbar__search">
+      <label>
+        <input type="text" placeholder="Search">
+        <span class="material-symbols-outlined" aria-label="Search">search</span>
+      </label>
+    </div>
+    <div class="navbar__darkmode">
+      <label class="switch-button" for="switch">
+        <div class="switch-outer">
+          <input id="switch" type="checkbox" aria-label="Toggle Switch">
+          <div class="button">
+            <span class="button-toggle"></span>
+            <span class="button-indicator"></span>
+          </div>
+        </div>
+      </label>
+    </div>
+    <div class="navbar__right">
+      <div class="mail">
+        <span class="mail__icon material-symbols-outlined arrow">mail</span>
+        <h5>3</h5>
+        <ul class="mail__submenu">
+          <li class="title">Email</li>
+          <li><a href="#">Esteban send you a message</a>
+            <h6>15 minutes ago</h6>
+          </li>
+          <li><a href="#">Emmanuel send you a message</a>
+            <h6>25 minutes ago</h6>
+          </li>
+          <li><a href="#">John send you a message</a>
+            <h6>40 minutes ago</h6>
+          </li>
+          <li class="btn"><button>Ver mas...</button></li>
+        </ul>
+      </div>
+      <div class="notifications">
+        <span class="material-symbols-outlined" aria-label="Notifications">notifications</span>
+      </div>
+      <div class="social">
+        <span class="social-toggle material-symbols-outlined">dashboard_customize</span>
+        <ul class="social__menu">
+          <li class="social__item">
+            <a href="#">
+              <span><img src="../../static/img/cromo.png" alt="google"></span>
+              <h6>Google</h6>
+            </a>
+          </li>
+          <li class="social__item">
+            <a href="#">
+              <span><img src="../../static/img/youtube.png" alt="youtube"></span>
+              <h6>Youtube</h6>
+            </a>
+          </li>
+          <li class="social__item">
+            <a href="#">
+              <span><img src="../../static/img/github.png" alt="github"></span>
+              <h6>Github</h6>
+            </a>
+          </li>
+          <li class="social__item">
+            <a href="#">
+              <span><img src="../../static/img/spotify.png" alt="spotify"></span>
+              <h6>Spotify</h6>
+            </a>
+          </li>
+          <li class="social__item">
+            <a href="#">
+              <span><img src="../../static/img/facebook.png" alt="facebook"></span>
+              <h6>Facebook</h6>
+            </a>
+          </li>
+          <li class="social__item">
+            <a href="#">
+              <span><img src="../../static/img/tik-tok.png" alt="tik-tok"></span>
+              <h6>Tik-tok</h6>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="profile">
+        <div class="profile__name">
+          <span class="profile-toggle">Jhon F. Hidalgo</span>
+        </div>
+        <ul class="profile__menu">
+          <li class="profile__item">
+            <a href="#">
+              <span class="material-symbols-outlined">person</span>
+              <span class="link__name">Perfil</span>
+            </a>
+          </li>
+          <li class="profile__item">
+            <a href="#">
+              <span class="material-symbols-outlined">settings</span>
+              <span class="link__name">Settings</span>
+            </a>
+          </li>
+          <li class="profile__item">
+            <a href="#">
+              <span class="material-symbols-outlined">logout</span>
+              <span class="link__name">Salir...</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- end navbar-->
+
+  <!--  start cards-->
+  <div class="cards">
+    <div class="card-wrap">
+      <div class="card-header one">
+        <i class="material-symbols-outlined">house</i>
+      </div>
+      <div class="card-content">
+        <h1>Inicio</h1>
+      </div>
+    </div>
+    <div class="card-wrap">
+      <a href="#calificaciones">
+        <div class="card-header two">
+          <i class="material-symbols-outlined">query_stats</i>
+        </div>
+        <div class="card-content">
+          <h1>Calificaciones</h1>
+        </div>
+      </a>
+    </div>
+    <div class="card-wrap">
+      <a href="#asistencia">
+        <div class="card-header three">
+          <i class="material-symbols-outlined">playlist_add_check</i>
+        </div>
+        <div class="card-content">
+          <h1>Asistencia</h1>
+        </div>
+      </a>
+    </div>
+    <div class="card-wrap">
+      <a href="#reportes">
+        <div class="card-header four">
+          <i class="material-symbols-outlined" aria-label="Format">bar_chart</i>
+        </div>
+        <div class="card-content">
+          <h1>Reportes</h1>
+        </div>
+      </a>
+    </div>
+    <div class="card-wrap">
+      <a href="#planificacion">
+        <div class="card-header five">
+          <i class="material-symbols-outlined" aria-label="Table">table_chart_view</i>
+        </div>
+        <div class="card-content">
+          <h1>Planeación</h1>
+        </div>
+      </a>
+    </div>
+    <div class="card-wrap">
+      <div class="card-header six">
+        <i class="material-symbols-outlined">format_list_numbered</i>
+      </div>
+      <div class="card-content">
+        <h1>Evaluaciones</h1>
+      </div>
+    </div>
+    <div class="card-wrap">
+      <a href="#tareas">
+        <div class="card-header seven">
+          <i class="material-symbols-outlined" aria-label="Library">library_books</i>
+        </div>
+        <div class="card-content">
+          <h1>Tareas</h1>
+        </div>
+      </a>
+    </div>
+    <div class="card-wrap">
+      <a href="#calendario">
+        <div class="card-header eight">
+          <i class="material-symbols-outlined" aria-label="Calendar">calendar_month</i>
+        </div>
+        <div class="card-content">
+          <h1>Calendario</h1>
+        </div>
+      </a>
+    </div>
+  </div>
+  <!-- end  cards-->
+
+  <!-- start calificaciones-->
+  <div class="ratings" id="calificaciones">
+    <div class="ratings__title">
+      <i class="material-symbols-outlined">edit_note</i>
+      <h3>Formulario de Notas</h3>
+    </div>
+    <div class="ratings__group">
+      <div class="group">
+        <label for="grados-select">Grupo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un grado">
+          <option value="">Seleccionar</option>
+          <option value="601">Grado 601</option>
+          <option value="602">Grado 602</option>
+          <option value="603">Grado 603</option>
+          <option value="604">Grado 604</option>
+          <option value="605">Grado 605</option>
+        </select>
+      </div>
+      <div class="subjects">
+        <label for="grados-select">Asignatura:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona una asignatura">
+          <option value="">Seleccionar</option>
+          <option value="matematicas">Matemáticas</option>
+          <option value="catellano">Castellano</option>
+          <option value="tecnologia">Tecnología</option>
+          <option value="etica">Ética</option>
+          <option value="artistica">Artistica</option>
+        </select>
+      </div>
+      <div class="period">
+        <label for="grados-select">Periodo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un Periodo">
+          <option value="primero">Primero</option>
+          <option value="segundo">Segundo</option>
+          <option value="tercero">Terecero</option>
+          <option value="cuarto">Cuarto</option>
+        </select>
+      </div>
+    </div>
+    <div class="ratings__buttons">
+      <button class="btn">Cargar<i class="material-symbols-outlined">add</i></button>
+      <button class="btn">Guardar<i class="material-symbols-outlined">save</i></button>
+      <button class="btn">Eliminar<i class="material-symbols-outlined">delete</i></button>
+      <button class="btn">Imprimir<i class="material-symbols-outlined">print</i></button>
+      <button class="btn">Ver Notas<i class="material-symbols-outlined">eye_tracking</i></button>
+    </div>
+    <div class="ratings__message">
+      <div id="mensajeError" class="mensaje__error"></div>
+    </div>
+    <div class="ratings__notes">
+      <div class="resultado__tabla" id="resultadoTabla"></div>
+    </div>
+    <div class="ratings__buttons">
+      <button class="btn">Cargar<i class="material-symbols-outlined">add</i></button>
+      <button class="btn">Guardar<i class="material-symbols-outlined">save</i></button>
+      <button class="btn">Eliminar<i class="material-symbols-outlined">delete</i></button>
+      <button class="btn">Imprimir<i class="material-symbols-outlined">print</i></button>
+      <button class="btn">Ver Notas<i class="material-symbols-outlined">eye_tracking</i></button>
+    </div>
+  </div>
+  <!-- end calificaciones-->
+  <!--star asistencia-->
+  <div class="assistance" id="asistencia">
+    <div class="assistance__title">
+      <i class="material-symbols-outlined">edit_note</i>
+      <h3>Formulario de Asistencia</h3>
+    </div>
+    <div class="assistance__group">
+      <div class="group">
+        <label for="grados-select">Grupo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un grado">
+          <option value="">Seleccionar</option>
+          <option value="601">Grado 601</option>
+          <option value="602">Grado 602</option>
+          <option value="603">Grado 603</option>
+          <option value="604">Grado 604</option>
+          <option value="605">Grado 605</option>
+        </select>
+      </div>
+      <div class="subjects">
+        <label for="grados-select">Asignatura:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona una asignatura">
+          <option value="">Seleccionar</option>
+          <option value="matematicas">Matemáticas</option>
+          <option value="catellano">Castellano</option>
+          <option value="tecnologia">Tecnología</option>
+          <option value="etica">Ética</option>
+          <option value="artistica">Artistica</option>
+        </select>
+      </div>
+      <div class="period">
+        <label for="grados-select">Periodo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un Periodo">
+          <option value="primero">Primero</option>
+          <option value="segundo">Segundo</option>
+          <option value="tercero">Terecero</option>
+          <option value="cuarto">Cuarto</option>
+        </select>
+      </div>
+    </div>
+    <div class="assistance__buttons">
+      <button class="btn">Cargar<i class="material-symbols-outlined">add</i></button>
+      <button class="btn">Guardar<i class="material-symbols-outlined">save</i></button>
+      <button class="btn">Generar<i class="material-symbols-outlined">picture_as_pdf</i></button>
+      <button class="btn">Imprimir<i class="material-symbols-outlined">print</i></button>
+    </div>
+    <div class="assistance__notes">
+      <div class="resultado__asistencia" id="resultadoAsistencia"></div>
+    </div>
+  </div>
+
+  <!--end asistencia-->
+  <!-- star reportes-->
+  <div class="report" id="reportes">
+    <div class="report__title">
+      <i class="material-symbols-outlined">bar_chart</i>
+      <h3>Reportes - Registro Academico </h3>
+    </div>
+    <div class="report__group">
+      <div class="group">
+        <label for="grados-select">Grupo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un grado">
+          <option value="">Seleccionar</option>
+          <option value="601">Grado 601</option>
+          <option value="602">Grado 602</option>
+          <option value="603">Grado 603</option>
+          <option value="604">Grado 604</option>
+          <option value="605">Grado 605</option>
+        </select>
+      </div>
+      <div class="subjects">
+        <label for="grados-select">Estudiante:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona una asignatura">
+          <option value="">Seleccionar</option>
+          <option value="matematicas">Agudelo Pérez Ana María</option>
+          <option value="catellano">Alvarez Ríos Camilo Andrés</option>
+          <option value="tecnologia">Arango Vargas Felipe</option>
+          <option value="etica">Benítez Gómez Luisa Fernanda</option>
+          <option value="artistica">Cárdenas López Esteban Daniel</option>
+        </select>
+      </div>
+      <div class="period">
+        <label for="grados-select">Periodo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un Periodo">
+          <option value="primero">Primero</option>
+          <option value="segundo">Segundo</option>
+          <option value="tercero">Terecero</option>
+          <option value="cuarto">Cuarto</option>
+        </select>
+      </div>
+    </div>
+    <div class="report__type">
+      <label for="grados-select"> Tipo de Reporte:</label>
+      <select id="grados-select" name="grados" aria-label="Reporte">
+        <option value="">Seleccionar</option>
+        <option value="primero">Boletin de Calificaciones</option>
+        <option value="segundo">Plan de Ajuste Razonable PIAR</option>
+        <option value="tercero">Informe de Aprobación y Reprobación</option>
+        <option value="cuarto">Concentrador de Notas por Período</option>
+        <option value="cuarto">Concentrador de Notas todos los Períodos</option>
+      </select>
+    </div>
+    <div class="report__buttons">
+      <button class="btn">Generar<i class="material-symbols-outlined">picture_as_pdf</i></button>
+    </div>
+  </div>
+
+  <!-- end reportes-->
+
+  <!-- start planeacion-->
+  <div class="planning" id="planificacion">
+    <div class="planning__title">
+      <i class="material-symbols-outlined" aria-label="Table">table_chart_view</i>
+      <h3> Planeación - Concepto Evaluativo</h3>
+    </div>
+    <div class="planning__date">
+      <div class="date__star">
+        <label for="dateStar">Fecha de inicio:</label>
+        <input type="date" name="dateStar" id="dateStar">
+      </div>
+      <div class="date__end">
+        <label for="dateEnd">Fecha de fin:</label>
+        <input type="date" name="dateEnd" id="dateEnd">
+      </div>
+    </div>
+    <div class="planning__group">
+      <div class="subjects">
+        <label for="grados-select">Asignatura:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona una asignatura">
+          <option value="">Seleccionar</option>
+          <option value="ciencias">Ciencias Naturales</option>
+          <option value="sociales">Ciencias Sociales</option>
+          <option value="lenguaje">Lenguaje</option>
+          <option value="matematicas">Matemáticas</option>
+          <option value="ingles">Ingles</option>
+        </select>
+      </div>
+      <div class="group">
+        <label for="grados-select">Grado:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un grado">
+          <option value="">Seleccionar</option>
+          <option value="sexto">Grado Sexto</option>
+          <option value="septimo">Grado Séptimo</option>
+          <option value="octavo">Grado Octavo</option>
+          <option value="noveno">Grado Noveno</option>
+          <option value="decimo">Grado Decimo</option>
+          <option value="undecimo5">Grado Undécimo</option>
+        </select>
+      </div>
+      <div class="period">
+        <label for="grados-select">Periodo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un Periodo">
+          <option value="primero">Primero</option>
+          <option value="segundo">Segundo</option>
+          <option value="tercero">Terecero</option>
+          <option value="cuarto">Cuarto</option>
+        </select>
+      </div>
+      <div class="type">
+        <label for="estandar">Tipo:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un Periodo">
+          <option value="">Seleccionar</option>
+          <option value="X">Concepto General</option>
+          <option value="Y">Necesidad Especial PIAR</option>
+        </select>
+      </div>
+      <div class="estandar">
+        <label for="estandar">Estandar:</label>
+        <select id="grados-select" name="grados" aria-label="Selecciona un Periodo">
+          <option value="">Seleccionar</option>
+          <option value="a">Pensamiento numérico y los sistemas numéricos </option>
+          <option value="b">Pensamiento espacial y los sistemas geométricos</option>
+          <option value="c">Pensamiento métrico y los sistemas métricos o de medidas</option>
+          <option value="d">Pensamiento aleatorio y los sistemas de datos</option>
+          <option value="e">Pensamiento variacional y los sistemas algebraicos y analíticos</option>
+        </select>
+      </div>
+      <div class="dba">
+        <label for="dba">DBA:</label>
+        <select id="dba" name="grados" aria-label="Selecciona un DBA">
+          <option value="">Seleccionar</option>
+          <option value="primero">1. Identifica los usos de los números (como
+            código, cardinal, medida, ordinal) y las
+            operaciones (suma y resta) en contextos de
+            juego, familiares, económicos, entre otros.</option>
+          <option value="segundo">2. Utiliza diferentes estrategias para contar,
+            realizar operaciones (suma y resta ) y resolver
+            problemas aditivos.</option>
+          <option value="tercero">3. Utiliza las características posicionales del
+            Sistema de Numeración Decimal (SND) para
+            establecer relaciones entre cantidades y
+            comparar números.
+          </option>
+        </select>
+      </div>
+      <div class="evidencia">
+        <label for="evidence">Evidencias de Aprendizaje:</label>
+        <select id="evidence" name="evidence" aria-label="Selecciona una Evidencia">
+          <option value="">Seleccionar</option>
+          <option value="1">1. Construye e interpreta representaciones pictóricas
+            y diagramas para representar relaciones entre
+            cantidades que se presentan en situaciones o
+            fenómenos.</option>
+          <option value="2">2. Explica cómo y por qué es posible hacer una
+            operación (suma o resta) en relación con los
+            usos de los números y el contexto en el cual se
+            presentan.</option>
+          <option value="3">3. Reconoce en sus actuaciones cotidianas
+            posibilidades de uso de los números y las
+            operaciones.</option>
+        </select>
+      </div>
+      <div class="skills">
+        <label for="skills">Competencias:</label>
+        <textarea name="skills" id="skills" cols="55" placeholder="Escribe aquí..."></textarea>
+      </div>
+      <div class="skills">
+        <label for="skills">Objetivos:</label>
+        <textarea name="skills" id="skills" cols="55" placeholder="Escribe aquí..."></textarea>
+      </div>
+    </div>
+    <div class="planning__buttons">
+      <button class="btn">Nuevo<i class="material-symbols-outlined">add</i></button>
+      <button class="btn">Guardar<i class="material-symbols-outlined">save</i></button>
+      <button class="btn">Eliminar<i class="material-symbols-outlined">delete</i></button>
+      <button class="btn">Imprimir<i class="material-symbols-outlined">print</i></button>
+      <button class="btn">Ver<i class="material-symbols-outlined">table_eye</i></button>
+
+    </div>
+  </div>
+  <!-- end planeacion-->
+
+  <!-- start tareas-->
+  <div class="task" id="tareas">
+    <div class="task__title">
+      <i class="material-symbols-outlined" aria-label="Table">library_books</i>
+      <h3> Asignar Tareas</h3>
+    </div>
+    <div class="task__parts">
+      <div class="task__left">
+        <div class="task__group">
+          <div class="group">
+            <label for="grados-select">Grupo:</label>
+            <select id="grados-select" name="grados" aria-label="Selecciona un grado">
+              <option value="">Seleccionar</option>
+              <option value="601">Grado 601</option>
+              <option value="602">Grado 602</option>
+              <option value="603">Grado 603</option>
+              <option value="604">Grado 604</option>
+              <option value="605">Grado 605</option>
+            </select>
+          </div>
+          <div class="subjects">
+            <label for="grados-select">Asignatura:</label>
+            <select id="grados-select" name="grados" aria-label="Selecciona una asignatura">
+              <option value="">Seleccionar</option>
+              <option value="matematicas">Matemáticas</option>
+              <option value="catellano">Castellano</option>
+              <option value="tecnologia">Tecnología</option>
+              <option value="etica">Ética</option>
+              <option value="artistica">Artistica</option>
+            </select>
+          </div>
+          <div class="date__star">
+            <label for="dateStar">Fecha de inicio:</label>
+            <input type="date" name="dateStar" id="dateStar">
+          </div>
+          <div class="date__end">
+            <label for="dateEnd">Fecha de fin:</label>
+            <input type="date" name="dateEnd" id="dateEnd">
+          </div>
+        </div>
+        <div class="task__topic">
+          <div class="task__theme">
+            <label for="tema">Tema:</label>
+            <input type="text" name="tema" id="tema" placeholder="Escribe aquí...">
+          </div>
+          <div class="task__description">
+            <label for="description">Descripción:</label>
+            <textarea name="description" id="description" cols="50" placeholder="Escribe aquí..."></textarea>
+          </div>
+          <div class="task__web">
+            <label for="web">URL:</label>
+            <input type="url" name="web" id="web" placeholder="Escribe aquí...">
+          </div>
+          <div class="task__attached">
+            <label for="attached">Adjunto:</label>
+            <input type="file" name="attached" id="attached">
+          </div>
+        </div>
+        <div class="task__buttons">
+          <button class="btn">Enviar<i class="material-symbols-outlined">schedule_send</i></button>
+        </div>
+      </div>
+      <div class="task__right">
+        <div class="task__students">
+          <div class="task__students-title">
+            <h3>Seleccionar Estudiantes</h3>
+          </div>
+          <div class="task__students-check">
+            <label for="students">Todos</label>
+            <input type="checkbox" name="students" id="students" value="1" aria-checked="false">
+          </div>
+        </div>
+        <div class="task__students-list">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end tareas-->
+  <!-- start calendario-->
+  <div class="calendar__star" id="calendario">
+    <div class="calendar__star-title">
+      <i class="material-symbols-outlined">calendar_month</i>
+      <h3>Calendario Escolar</h3>
+    </div>
+    <div id="calendar"></div>
+    <div id="eventModal" class="modal">
+      <h2 id="modalTitle"></h2>
+      <form class="form" id="eventForm">
+        <label for="eventTitle">Actividad:</label>
+        <input type="text" id="eventTitle" required>
+
+        <label for="eventStart">Fecha de inicio:</label>
+        <input type="date" id="eventStart" required>
+
+        <label for="eventEnd">Fecha de Finalización:</label>
+        <input type="date" id="eventEnd" required>
+
+        <label for="eventDuration">Duración (días):</label>
+        <input type="number" id="eventDuration" min="1" value="1" required>
+
+        <label for="eventColor">Color del evento:</label>
+        <select id="eventColor" required>
+          <option value="#3788d8">Azul</option>
+          <option value="#ff9f89">Rojo claro</option>
+          <option value="#4caf50">Verde</option>
+          <option value="#ffeb3b">Amarillo</option>
+          <option value="#9c27b0">Morado</option>
+          <option value="#ff5722">Naranja</option>
+          <option value="#00bcd4">Turquesa</option>
+          <option value="#8bc34a">Verde claro</option>
+          <option value="#e91e63">Rosa</option>
+          <option value="#795548">Marrón</option>
+        </select>
+        <div class="modal__buttons">
+          <button type="submit" class="btn">Guardar<i class="material-symbols-outlined">save</i></button>
+          <button type="button" class="btn" onclick="closeModal()">Cancelar<i
+              class="material-symbols-outlined">delete</i></button>
+        </div>
+      </form>
+    </div>
+    <!-- Fondo oscuro para la modal -->
+    <div id="modalOverlay" class="modal-overlay"></div>
+  </div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/gradesTable.js') }}"></script>
+<script src="{{ url_for('static', filename='js/calendario.js') }}"></script>
+<script src="{{ url_for('static', filename='js/asistencia.js') }}"></script>
+{% endblock %}
+
 </body>
+
 </html>

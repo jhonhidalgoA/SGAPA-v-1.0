@@ -7,20 +7,28 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import requests
 from datetime import datetime, timedelta
+from markupsafe import escape
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 
 app = Flask(__name__, template_folder='app/templates')
 
 # Configuración de MySQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/loginpython'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = secrets.token_hex(16)
-RECAPTCHA_SECRET_KEY = '6LeAWqIqAAAAAHN_qJsp1YSDqMUXZAIBi9e61VJz'
 
+
+
+app.secret_key = secrets.token_hex(16)
+
+
+RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
 db.init_app(app)
 migrate = Migrate(app, db)
 
-MAX_FAILED_ATTEMPTS = 5  
+MAX_FAILED_ATTEMPTS = 3  
 LOCK_TIME_LIMIT = timedelta(minutes = 1)  # Tiempo de bloqueo después de exceder los intentos
 
 @app.route('/')
@@ -34,8 +42,8 @@ def login():
     captcha_error = None
 
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+        username = (request.form.get('username', '').strip())
+        password = request.form.get('password', '').strip()
         recaptcha_response = request.form.get('g-recaptcha-response')
 
         if not validate_recaptcha(recaptcha_response):
@@ -47,10 +55,10 @@ def login():
         # Verificar si la cuenta está bloqueada
         user = User.query.filter_by(username=username).first()
         if user:
-            if user.failed_attempts >= 5:
-                lockout_period = timedelta(minutes = 1)
+            if user.failed_attempts >= 3:
+                lockout_period = timedelta(minutes = 3)
                 if datetime.utcnow() - user.last_failed_attempt < lockout_period:
-                    flash('Cuenta bloqueada. Intente de nuevo en 5 minutos.', 'lockout')
+                    flash('Cuenta bloqueada. Intente de nuevo en 3 minutos.', 'lockout')
                     return render_template('login.html', username_error=username_error, password_error=password_error)
 
         if not username:
@@ -78,9 +86,9 @@ def login():
                     user.failed_attempts +=1
                     user.last_failed_attempt = datetime.utcnow()
                     db.session.commit() 
-                    password_error = '"Contraseña no válida"'
+                    password_error = 'Contraseña no válida"'
             else:
-                username_error = '"El nombre de usuario es incorrecto"'
+                username_error = 'El nombre de usuario es incorrecto"'
 
     return render_template('login.html', username_error=username_error, password_error=password_error)
 
